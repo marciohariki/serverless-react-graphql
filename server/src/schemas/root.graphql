@@ -1,0 +1,2 @@
+# import Query.* from "src/schemas/todos/todos.graphql"
+# import Mutation.* from "src/schemas/todos/todos.graphql"

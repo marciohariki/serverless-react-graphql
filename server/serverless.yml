@@ -1,0 +1,63 @@
+service: server-graphql
+
+plugins:
+  - serverless-offline
+  - serverless-webpack
+  - serverless-prune-plugin
+  - serverless-domain-manager
+
+provider:
+  name: aws
+  runtime: nodejs8.10
+  region: us-east-1
+  stage: ${opt:stage, self:custom.defaultStage}
+  environment:
+    ENV_NAME: ${opt:stage, self:provider.stage}
+    region: ${self:provider.region}
+
+custom:
+  defaultStage: development
+  developmentDeletionPolicy: Delete
+  productionDeletionPolicy: Retain
+  databaseIdentifier: server-graphql-${self:provider.environment.ENV_NAME}
+  databaseName: server-graphql-${self:provider.environment.ENV_NAME}
+  lambdaProccess: ${self:service}-lambda-${self:provider.environment.ENV_NAME}
+  webpackIncludeModules: true
+  databasePassword:
+    development: ${ssm:/Serverless-Graphql-React/DB/Dev}
+    production: ${ssm:/Serverless-Graphql-React/DB/Prod}
+  domainName:
+    development: dev-api.hariki-labs.com.br
+    production: origin-api.hariki-labs.com.br
+  customDomain:
+    domainName: ${self:custom.domainName.${opt:stage, self:provider.stage}}
+    certificateArn: arn:aws:acm:us-east-1:559889158711:certificate/a7495884-c60a-4010-ac56-a6ce1066432a
+    basePath: ''
+    stage: ${opt:stage, self:provider.stage}
+    createRoute53Record: true
+    endpointType: regional
+  prune:
+    automatic: true
+    number: 3
+  serverless-offline:
+    port: 4000
+
+functions:
+  graphql:
+    handler: src/handler.graphqlHandler
+    environment:
+      databaseHost: ${self:custom.databaseIdentifier}.ci7uyjvsu85q.${self:provider.region}.rds.amazonaws.com
+      databaseUser: root
+      databasePassword: ${self:custom.databasePassword.${self:provider.environment.ENV_NAME}}
+      databaseDb: kiki
+    events:
+      - http:
+          path: graphql
+          method: post
+          cors: true
+  playground:
+    handler: src/handler.playgroundHandler
+    events:
+      - http:
+          path: playground
+          method: get
