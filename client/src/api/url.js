@@ -1,1 +1,1 @@
-export const GRAPHQL_API_ROOT = 'http://localhost:4000/graphql'
+export const GRAPHQL_API_ROOT = 'https://dev-api.hariki-labs.com/graphql'

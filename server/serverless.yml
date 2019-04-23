@@ -27,11 +27,11 @@ custom:
     development: ${ssm:/Serverless-Graphql-React/DB/Dev}
     production: ${ssm:/Serverless-Graphql-React/DB/Prod}
   domainName:
-    development: dev-api.hariki-labs.com.br
-    production: origin-api.hariki-labs.com.br
+    development: dev-api.hariki-labs.com
+    production: origin-api.hariki-labs.com
   customDomain:
     domainName: ${self:custom.domainName.${opt:stage, self:provider.stage}}
-    certificateArn: arn:aws:acm:us-east-1:559889158711:certificate/a7495884-c60a-4010-ac56-a6ce1066432a
+    certificateArn: arn:aws:acm:us-east-1:559889158711:certificate/2c28bdaf-d20e-4996-a7b6-8b018bb776dd
     basePath: ''
     stage: ${opt:stage, self:provider.stage}
     createRoute53Record: true

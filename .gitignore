@@ -10,3 +10,4 @@ public/static
 .env.*.local
 .idea
 .env
+server/.serverless
