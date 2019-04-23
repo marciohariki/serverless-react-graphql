@@ -63,7 +63,6 @@ class Todo extends React.Component {
 }
 
 const mapStateToProps = (state) => {
-  console.log(state)
   return {
     todos: state.todos.data,
     isLoading: state.todos.isLoading
