@@ -20,7 +20,7 @@ custom:
   developmentDeletionPolicy: Delete
   productionDeletionPolicy: Retain
   databaseIdentifier: server-graphql-${self:provider.environment.ENV_NAME}
-  databaseName: server-graphql-${self:provider.environment.ENV_NAME}
+  databaseName: server_graphql_${self:provider.environment.ENV_NAME}
   lambdaProccess: ${self:service}-lambda-${self:provider.environment.ENV_NAME}
   webpackIncludeModules: true
   databasePassword:
@@ -49,7 +49,7 @@ functions:
       databaseHost: ${self:custom.databaseIdentifier}.ci7uyjvsu85q.${self:provider.region}.rds.amazonaws.com
       databaseUser: root
       databasePassword: ${self:custom.databasePassword.${self:provider.environment.ENV_NAME}}
-      databaseDb: kiki
+      databaseDb: ${self:custom.databaseName}
     events:
       - http:
           path: graphql
@@ -61,3 +61,20 @@ functions:
       - http:
           path: playground
           method: get
+
+resources:
+  Resources:
+    Database:
+      Type: AWS::RDS::DBInstance
+      Properties:
+        AllocatedStorage: 100
+        AutoMinorVersionUpgrade: true
+        AvailabilityZone: ${self:provider.region}a
+        DBInstanceClass: db.t3.micro
+        DBInstanceIdentifier: ${self:custom.databaseIdentifier}
+        DBName: ${self:custom.databaseName}
+        Engine: "postgres"
+        EngineVersion: 10.6
+        MasterUsername: "root"
+        MasterUserPassword: ${self:custom.databasePassword.${self:provider.environment.ENV_NAME}}
+        PubliclyAccessible: true

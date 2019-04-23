@@ -1,4 +1,4 @@
-import { CREATE_TODO, DELETE_TODO, FETCH_TODOS, EDIT_TODO } from './types'
+import { CREATE_TODO, DELETE_TODO, FETCH_TODOS, EDIT_TODO, LOAD_FETCH_TODOS } from './types'
 import todoService from '../../services/todoService'
 
 export const createTodo = todo => async dispatch => {
@@ -12,8 +12,9 @@ export const deleteTodo = todoId => async dispatch => {
 }
 
 export const fetchTodos = () => async dispatch => {
+  dispatch({ type: FETCH_TODOS })
   const result = await todoService.getTodos()
-  dispatch({ type: FETCH_TODOS, payload: result })
+  dispatch({ type: LOAD_FETCH_TODOS, payload: result })
 }
 
 export const editTodos = todo => async dispatch => {

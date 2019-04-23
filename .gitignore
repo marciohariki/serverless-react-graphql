@@ -10,4 +10,5 @@ public/static
 .env.*.local
 .idea
 .env
-server/.serverless
+.serverless
+.webpack

@@ -29,25 +29,44 @@ class Todo extends React.Component {
   onRemoveClick = (todo) => {
     this.props.deleteTodo(todo.id)
   }
+  renderTodoList = () => {
+    const { todos, isLoading } = this.props
+    if (isLoading) {
+      return (
+        <div className="ui placeholder">
+          <div className="line"/>
+          <div className="line"/>
+          <div className="line"/>
+        </div>
+      )
+    }
 
-  render () {
-    const { todos } = this.props
     return (
-      <div className='ui container'>
-        <h1>Todo List</h1>
+      <>
         <TodoList
           todos={todos}
           onCheckClick={this.onCheckClick}
           onRemoveClick={this.onRemoveClick}/>
         <TodoInput onSubmit={this.handleSubmit}/>
+      </>
+    )
+  }
+
+  render () {
+    return (
+      <div className='ui container'>
+        <h1>Todo List</h1>
+        {this.renderTodoList()}
       </div>
     )
   }
 }
 
 const mapStateToProps = (state) => {
+  console.log(state)
   return {
-    todos: state.todos
+    todos: state.todos.data,
+    isLoading: state.todos.isLoading
   }
 }
 

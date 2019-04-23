@@ -17,7 +17,8 @@
     "build": "react-scripts build",
     "test": "react-scripts test",
     "eject": "react-scripts eject",
-    "dploy": "aws s3 sync build/ s3://hariki-labs-serverless-react-graphql"
+    "deploy": "aws s3 sync build/ s3://hariki-labs-serverless-react-graphql",
+    "deploy-teste": "aws s3 sync build/ s3://hariki-labs-teste"
   },
   "eslintConfig": {
     "extends": "react-app"
