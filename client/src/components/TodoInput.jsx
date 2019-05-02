@@ -1,7 +1,7 @@
 import React, { useState } from 'react'
 
 export default (props) => {
-  const { onSubmit } = props
+  const {onSubmit} = props
   const [inputValue, setInputValue] = useState('')
 
   const handleChange = (e) => {

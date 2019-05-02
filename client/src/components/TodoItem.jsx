@@ -1,7 +1,7 @@
 import React from 'react'
 
 export default (props) => {
-  const { checked, content, onCheckClick, onRemoveClick } = props
+  const {checked, content, onCheckClick, onRemoveClick} = props
   return (
     <div className='item'>
       <i

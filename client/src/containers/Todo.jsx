@@ -30,7 +30,7 @@ class Todo extends React.Component {
     this.props.deleteTodo(todo.id)
   }
   renderTodoList = () => {
-    const { todos, isLoading } = this.props
+    const {todos, isLoading} = this.props
     if (isLoading) {
       return (
         <div className="ui placeholder">

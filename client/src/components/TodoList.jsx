@@ -3,7 +3,7 @@ import TodoItem from './TodoItem'
 import { map } from 'lodash'
 
 export default (props) => {
-  const { todos, onCheckClick, onRemoveClick } = props
+  const {todos, onCheckClick, onRemoveClick} = props
 
   return (
     <div className='ui middle aligned divided list'>
